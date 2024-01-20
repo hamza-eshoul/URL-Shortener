@@ -11,7 +11,9 @@
 </head>
 <body>
     <div id="app">
-        <example />
+        <projectheader></projectheader>
+        <urlshortener> </urlshortener>
+        <urlslist />
     </div>
 
     @vite('resources/js/app.js')
