@@ -3,9 +3,15 @@
         <div
             class="flex w-full justify-between border-b-[1px] shadow-sm pb-3 border-zinc-200"
         >
-            <h2 class="font-semibold text-[15px]">Full Url</h2>
-            <h2 class="font-semibold text-[15px]">Short Url</h2>
-            <h2 class="font-semibold text-[15px]">Clicks</h2>
+            <h2 class="font-semibold text-[15px] w-1/2 text-center">
+                Full Url
+            </h2>
+            <h2 class="font-semibold text-[15px] w-[25%] text-center">
+                Short Url
+            </h2>
+            <h2 class="font-semibold text-[15px] w-[25%] text-center">
+                Url Visits
+            </h2>
         </div>
 
         <div v-if="urls.length">
@@ -14,18 +20,22 @@
                     <a
                         :href="url.longUrl"
                         target="_blank"
-                        class="text-[#0000EE] text-[15px] cursor-pointer underline"
+                        class="text-[#0000EE] text-[15px] cursor-pointer underline w-1/2 text-center overflow-hidden"
+                        @click="incrementUrlVisits(url.id)"
                     >
                         {{ url.longUrl }}
                     </a>
                     <a
                         :href="url.longUrl"
                         target="_blank"
-                        class="text-[#0000EE] text-[15px] cursor-pointer underline"
+                        class="text-[#0000EE] text-[15px] cursor-pointer underline w-[25%] text-center"
+                        @click="incrementUrlVisits(url.id)"
                     >
                         {{ url.shortUrl }}
                     </a>
-                    <h2 class="text-[15px]">10</h2>
+                    <h2 class="text-[15px] w-[25%] text-center">
+                        {{ url.visits_count }}
+                    </h2>
                 </div>
             </div>
         </div>
@@ -52,7 +62,17 @@ export default {
             fetchUrls();
         });
 
-        return { urls };
+        const incrementUrlVisits = async (id) => {
+            const response = await fetch(
+                `http://localhost:8000/api/url/shorten/${id}`,
+                {
+                    method: "PUT",
+                }
+            );
+            const json = await response.json();
+        };
+
+        return { urls, incrementUrlVisits };
     },
 };
 </script>

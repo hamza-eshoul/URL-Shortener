@@ -47,4 +47,15 @@ class UrlShortener extends Controller
      
         return 'the url was succesfully added';
     }
+
+    // Update url count visits
+
+    public function update(Request $request, $id) {
+
+        $url= Urls::find($id);
+
+        $url->increment('visits_count', 1);
+
+        return $url;
+    }
 }

@@ -12,6 +12,7 @@
 <body>
     <div id="app">
         <projectheader></projectheader>
+        <urlstats></urlstats>
         <urlshortener> </urlshortener>
         <urlslist />
     </div>

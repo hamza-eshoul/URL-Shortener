@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('urlCode');
             $table->string('longUrl');
             $table->string('shortUrl');
+            $table->integer('visits_count')->default(0);
             $table->timestamps();
         });
     }
