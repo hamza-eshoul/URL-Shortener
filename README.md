@@ -41,7 +41,7 @@ To run the project locally :
 
 ```
 git clone https://github.com/hamza-eshoul/URL-Shortener.git
-cd ...
+cd URL-Shortener
 ```
 
 -   Install composer dependecies
@@ -54,6 +54,18 @@ composer install
 
 ```
 npm install
+```
+
+-   Create a .env file and updat its content by setting up a connection to a local database
+
+```
+cp .env.example .env
+```
+
+-   Generate a new application key
+
+```
+php artisan key:generate --ansi
 ```
 
 -   Run migrations
