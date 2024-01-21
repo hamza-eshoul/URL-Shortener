@@ -14,8 +14,8 @@
             </h2>
         </div>
 
-        <div v-if="urls.length">
-            <div v-for="url in urls" :key="url.id">
+        <div v-if="latest_urls.length">
+            <div v-for="url in latest_urls" :key="url.id">
                 <div class="flex justify-between py-2 bg-blue-100/30">
                     <a
                         :href="url.longUrl"
@@ -43,25 +43,9 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
 export default {
+    props: ["latest_urls"],
     setup() {
-        const urls = ref([]);
-
-        onMounted(() => {
-            const fetchUrls = async () => {
-                const response = await fetch(
-                    "http://localhost:8000/api/url/shorten"
-                );
-
-                const json = await response.json();
-
-                urls.value = json;
-            };
-
-            fetchUrls();
-        });
-
         const incrementUrlVisits = async (id) => {
             const response = await fetch(
                 `http://localhost:8000/api/url/shorten/${id}`,
@@ -69,10 +53,8 @@ export default {
                     method: "PUT",
                 }
             );
-            const json = await response.json();
         };
-
-        return { urls, incrementUrlVisits };
+        return { incrementUrlVisits };
     },
 };
 </script>

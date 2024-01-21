@@ -11,10 +11,8 @@
 </head>
 <body>
     <div id="app">
-        <projectheader></projectheader>
-        <urlstats></urlstats>
-        <urlshortener> </urlshortener>
-        <urlslist />
+        <appheader> </appheader>
+        <appbody />
     </div>
 
     @vite('resources/js/app.js')

@@ -8,12 +8,11 @@ use App\Models\Urls;
 
 class UrlShortener extends Controller
 {
-
     // Show all urls
 
     public function index() {
 
-        $urls_list = Urls::all();
+        $urls_list = Urls::orderBy("created_at", "DESC")->get();
 
         return $urls_list;
     }
@@ -21,31 +20,44 @@ class UrlShortener extends Controller
     // Store New Url
 
     public function store(Request $request) {
-        // generate short url
 
         $long_url = $request->getContent();
 
-        $baseUrl = "squaHR";
+        // check if url already exists in database
 
-        $unique_id = Str::uuid();
+        $db_url = Urls::where('longUrl', $long_url)->first();
 
-        $short_unique_id = substr($unique_id, 0, 5);
+        if ($db_url) {
+            return response()->json([
+                'error' => 'The url already exists, try a different url'
+            ]);
+        }
+        
+        else {
+            // generate short url
 
-        $generated_short_url = $baseUrl . "/" . $short_unique_id;
+            $baseUrl = "squaHR";
 
-        // save url to the database
+            $unique_id = Str::uuid();
 
-        $url = new Urls; 
+            $short_unique_id = substr($unique_id, 0, 5);
 
-        $url->urlCode = $short_unique_id;
+            $generated_short_url = $baseUrl . "/" . $short_unique_id;
 
-        $url->longUrl = $long_url;
+            // save url to the database
 
-        $url->shortUrl = $generated_short_url;
+            $url = new Urls; 
 
-        $url->save();
-     
-        return 'the url was succesfully added';
+            $url->urlCode = $short_unique_id;
+
+            $url->longUrl = $long_url;
+
+            $url->shortUrl = $generated_short_url;
+
+            $url->save();
+        
+            return $url;
+        }
     }
 
     // Update url count visits
