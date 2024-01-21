@@ -47,12 +47,9 @@ export default {
     props: ["latest_urls"],
     setup() {
         const incrementUrlVisits = async (id) => {
-            const response = await fetch(
-                `http://localhost:8000/api/url/shorten/${id}`,
-                {
-                    method: "PUT",
-                }
-            );
+            await fetch(`http://localhost:8000/api/url/shorten/${id}`, {
+                method: "PUT",
+            });
         };
         return { incrementUrlVisits };
     },
