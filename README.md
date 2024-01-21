@@ -4,8 +4,6 @@ This is the repository for the Url Shortener Project built with Laravel and Vue.
 
 The goal of the project is to allow users to shorten long URLs into shorter, more manageable ones.
 
--   Project's Live Preview url - https://hamzaeshoul.com/
-
 ## Project
 
 ![Project Screnshot](/screenshots/Project.png)
